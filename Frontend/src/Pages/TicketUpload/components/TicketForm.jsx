@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Upload } from "lucide-react";
+import { useNavigate } from "react-router";
+import { useTicket } from "@/context/TicketProvider";
 
 // ✅ Validation Schema
 const formSchema = z.object({
@@ -39,8 +41,16 @@ const formSchema = z.object({
 });
 
 const TicketForm = () => {
+  const navigate = useNavigate();
+  const { setTicketData } = useTicket();
   const [preview, setPreview] = useState(null);
   const [dragActive, setDragActive] = useState(false);
+
+  // 🔢 Generate a random ticket ID like #4721
+  const generateTicketId = () => {
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    return `#${randomNum}`;
+  };
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -84,7 +94,20 @@ const TicketForm = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("Form submitted:", data);
+    const ticketInfo = {
+      fullName: data.fullName, // ✅ Correct key name
+      email: data.email,
+      github: data.github,
+      avatar: URL.createObjectURL(data.avatar[0]),
+      ticketId: generateTicketId(),
+      event: "Coding Conf",
+      date: "Jan 31, 2025 / Austin, TX",
+    };
+
+    setTicketData(ticketInfo);
+    navigate("/ticket");
+
+    console.log("Form submitted:", ticketInfo);
     toast.success("🎟️ Your ticket has been generated successfully!");
   };
 
@@ -134,8 +157,7 @@ const TicketForm = () => {
                           <div className="flex flex-wrap justify-center gap-2">
                             <Button
                               type="button"
-                              variant="outline"
-                              className="text-xs sm:text-sm"
+                              className=" font-Inconsolata font-semibold bg-orange-500 text-secondary hover:bg-orange-600 text-xs sm:text-sm"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setPreview(null);
@@ -144,10 +166,10 @@ const TicketForm = () => {
                             >
                               Remove
                             </Button>
+
                             <Button
                               type="button"
-                              variant="secondary"
-                              className="text-xs sm:text-sm"
+                              className="font-Inconsolata font-semibold bg-orange-500 text-secondary hover:bg-orange-600 text-xs sm:text-sm"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 document
@@ -232,9 +254,6 @@ const TicketForm = () => {
                         text-white
                         placeholder-white/70
                         focus:outline-none
-                        focus:border-orange-500
-                        focus:ring-2
-                        focus:ring-orange-500/50
                         transition-all
                         duration-300
                         w-full

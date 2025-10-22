@@ -38,7 +38,7 @@ const TicketUpload = () => {
         <img
           src="/assets/images/pattern-circle.svg"
           alt="Pattern circle"
-          className="absolute top-[40%] sm:top-[38%] lg:top-[35%] right-4 sm:right-8 lg:right-20 w-16 sm:w-24 lg:w-32 pointer-events-none"
+          className="absolute top-[75%] sm:top-[68%] lg:top-[60%] right-6 sm:right-12 lg:right-[22rem] w-20 sm:w-32 lg:w-[12.5rem] pointer-events-none"
         />
 
         <HeroContent />

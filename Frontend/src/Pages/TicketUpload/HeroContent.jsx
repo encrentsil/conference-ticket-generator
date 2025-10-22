@@ -11,7 +11,7 @@ const HeroContent = () => {
       </h1>
 
       {/* Description */}
-      <p className="text-muted-foreground font-Inconsolata text-sm sm:text-base md:text-lg lg:text-xl mt-3 sm:mt-4 mb-6 sm:mb-8 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
+      <p className="text-muted-foreground  font-Inconsolata text-sm sm:text-base md:text-lg lg:text-xl mt-3 sm:mt-4 mb-6 sm:mb-8 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
         Secure your spot at next year's biggest coding conference.
       </p>
 

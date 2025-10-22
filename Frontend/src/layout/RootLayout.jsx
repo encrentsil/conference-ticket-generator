@@ -1,14 +1,12 @@
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/constants/Navbar";
-import { Outlet, useLocation } from "react-router";
+import { TicketProvider } from "@/context/TicketProvider";
+import { Outlet } from "react-router";
 
 const RootLayout = () => {
-  const location = useLocation();
-  const isHome = location.pathname === "/";
-
   return (
-    <>
-      <Navbar isHome={isHome} />
+    <TicketProvider>
+      <Navbar />
       <Outlet />
 
       {/* Toast container with glassmorphism & orange success */}
@@ -39,7 +37,7 @@ const RootLayout = () => {
           },
         }}
       />
-    </>
+    </TicketProvider>
   );
 };
 
