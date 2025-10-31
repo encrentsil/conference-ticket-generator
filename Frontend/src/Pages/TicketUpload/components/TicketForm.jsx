@@ -46,7 +46,7 @@ const TicketForm = () => {
   const [preview, setPreview] = useState(null);
   const [dragActive, setDragActive] = useState(false);
 
-  // 🔢 Generate a random ticket ID like #4721
+  // Generate a random ticket ID like #4721
   const generateTicketId = () => {
     const randomNum = Math.floor(1000 + Math.random() * 9000);
     return `#${randomNum}`;
@@ -104,6 +104,8 @@ const TicketForm = () => {
       date: "Jan 31, 2025 / Austin, TX",
     };
 
+     // Save data globally & in localStorage
+     localStorage.setItem("ticketData", JSON.stringify(ticketInfo));
     setTicketData(ticketInfo);
     navigate("/ticket");
 
